@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Row, Col, Card, Progress, Input, Empty } from 'antd'
+import { Row, Col, Card, Input, Empty } from 'antd'
 import { connect } from 'react-redux'
 import './style.css'
 import { COLORS } from '../App'
 import { getMorePokemon, searchPokemon } from '../actions'
+import Progress from './progress'
 
 const { Search } = Input;
 
@@ -26,15 +27,17 @@ class Popup extends Component {
       this.setState({ card: dataByParams.cards })
     }
   }
+
   handleCard = (item) => {
     const { card } = this.state
     const result = card.filter(value => value !== item)
-    this.setState({ card: result }, () => this.props.onAdd(card))
+    this.setState({ card: result }, () => this.props.onAdd(item))
   }
 
   handleSearch = (e) => {
     this.setState({ keyword: e.target.value, card: [] }, () => this.props.searchData({ value: this.state.keyword }))
   }
+
   render() {
     const { card } = this.state
     return (<div>
@@ -42,28 +45,27 @@ class Popup extends Component {
       <div className="popup-content">
         <Row>
           {card.length !== 0 ? card.map(item => {
-            return (
-              <Col span={24} key={item.name}>
-                <Card className="card-style">
-                  <div className="add-icon" onClick={() => this.handleCard(item)}>
-                    Add
+            if (!this.props.cardSelected.find(e => e.id === item.id))
+              return (
+                <Col span={24} key={item.name}>
+                  <Card className="card-style">
+                    <div className="add-icon" onClick={() => this.handleCard(item)}>
+                      Add
                 </div>
-                  <Row>
-                    <Col span={10}>
-                      <img src={item.imageUrl} width="150px" />
-                    </Col>
-                    <Col span={14}>
-                      <div className="text-content">
-                        {item.name}
-                      </div>
-                      <div className="progress">
-                        HP <Progress percent={item.hp > 100 ? 100 : item.hp} showInfo={false} />
-                      </div>
-                    </Col>
-                  </Row>
-                </Card>
-              </Col>
-            )
+                    <Row>
+                      <Col span={10}>
+                        <img src={item.imageUrl} width="150px" />
+                      </Col>
+                      <Col span={14}>
+                        <div className="text-content">
+                          {item.name}
+                        </div>
+                        <Progress item={item} />
+                      </Col>
+                    </Row>
+                  </Card>
+                </Col>
+              )
           })
             : <Empty />}
         </Row>

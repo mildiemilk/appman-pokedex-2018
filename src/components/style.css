@@ -1,0 +1,32 @@
+.navbar{
+  display: flex;
+  justify-content: center;
+  font-size: 35px;
+}
+.add-icon {
+  color: #dc7777;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  font-size: 19px;
+}
+.ant-card-body{
+  width: 100%;
+}
+.card-style {
+  height: 280px;
+  min-height: 250px;
+  max-height: 300px;
+  margin: 10px;
+  border: 1px solid grey;
+  background: #F3F4F7,;
+  display: flex;
+}
+.text-content {
+  font-size: 30px;
+  text-align: center;
+}
+.progress {
+  display: flex;
+  margin: 28px;
+}

@@ -1,7 +1,4 @@
 import axios from 'axios'
-// import store from '../store'
-// import { loginUserSuccess, loginUserPending, loginUserFailure } from '../actions/profile'
-// import { LOGIN_USER } from '../actions/profile'
 
 const BASE_URL = 'http://localhost:3030'
 

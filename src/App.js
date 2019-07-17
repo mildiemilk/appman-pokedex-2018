@@ -1,11 +1,12 @@
-import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Row, Col, Card, Progress, Modal, Icon } from 'antd'
+import React, { Component, Fragment } from 'react'
+import { Row, Col, Card, Modal, Icon } from 'antd'
 import './App.css'
 import { getPokemon } from './actions'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Popup from './components/Popup'
+import Progress from './components/progress'
 
 export const COLORS = {
   Psychic: "#f8a5c2",
@@ -75,9 +76,7 @@ class App extends Component {
                           <div className="text-content">
                             {item.name}
                           </div>
-                          <div className="progress">
-                            HP <Progress percent={item.hp > 100 ? 100 : item.hp} showInfo={false} />
-                          </div>
+                          <Progress item={item} />
                         </Col>
                       </Row>
                     </Card>
@@ -96,7 +95,7 @@ class App extends Component {
           maskClosable={true}
           closable={false}
         >
-          <Popup onAdd={this.onAdd} />
+          <Popup onAdd={this.onAdd} cardSelected={this.state.data} />
         </Modal>
       </Fragment>
     )
